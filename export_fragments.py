@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path('/local_data/yz11445/projects/Assembly_Sim')
 OUT = Path(__file__).resolve().parent
-spec = importlib.util.spec_from_file_location('geometry', ROOT/'tasks/stack_sawtooth_shulker/geometry.py')
+spec = importlib.util.spec_from_file_location('geometry', ROOT/'tasks/stack_sawtooth_shulker_small/geometry.py')
 g = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(g)
 
@@ -46,11 +46,11 @@ def export(name, cells, inset):
     boxes = []
     for x,y,z in cells:
         d = inset if z == 1 else 0.0
-        boxes.append(((x*80+d,y*80+d,z*80),((x+1)*80-d,(y+1)*80-d,(z+1)*80)))
+        boxes.append(((x*27+d,y*27+d,z*27),((x+1)*27-d,(y+1)*27-d,(z+1)*27)))
     tris = mesh(boxes)
     filename = f'{name}_{"nominal" if inset == 0 else "clearance_0p4mm"}.stl'
     with (OUT/filename).open('wb') as f:
-        f.write(b'Shulker full size; units millimeters'.ljust(80,b'\0'))
+        f.write(b'Shulker small; units millimeters'.ljust(80,b'\0'))
         f.write(struct.pack('<I',len(tris)))
         for p,q,r in tris:
             u = [q[a]-p[a] for a in range(3)]; v = [r[a]-p[a] for a in range(3)]

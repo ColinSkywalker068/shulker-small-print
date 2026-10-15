@@ -30,12 +30,12 @@ for path in sorted(out.glob('*.stl')):
     bad = sum(n != 2 for n in edges.values())
     consistent = all(directed[(p,q)]==directed[(q,p)] for p,q in edges)
     result = dict(triangles=count,dimensions_mm=[round(hi-lo,5) for lo,hi in bounds],nonmanifold_edges=bad,consistent_winding=consistent,connected_components=components,volume_mm3=round(volume,3))
-    assert result['dimensions_mm'] == [240,240,160]
+    assert result['dimensions_mm'] == [81,81,54]
     assert volume > 0 and consistent and components == 1
     if 'clearance' in path.name:
         assert bad == 0
         posts = 5 if 'FragmentA' in path.name else 4
-        assert abs(volume - (240*240*80+posts*79.6**2*80)) < 2.0
+        assert abs(volume - (81*81*27+posts*26.6**2*27)) < 0.1
     results[path.name] = result
 (out/'validation.json').write_text(json.dumps(results,indent=2)+'\n')
 print(json.dumps(results,indent=2))
