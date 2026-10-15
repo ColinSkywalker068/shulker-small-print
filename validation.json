@@ -2,49 +2,49 @@
   "FragmentA_clearance_0p4mm.stl": {
     "triangles": 436,
     "dimensions_mm": [
-      81.0,
-      81.0,
-      54.0
+      240.0,
+      240.0,
+      160.0
     ],
     "nonmanifold_edges": 0,
     "consistent_winding": true,
     "connected_components": 1,
-    "volume_mm3": 272667.602
+    "volume_mm3": 7142464.311
   },
   "FragmentA_nominal.stl": {
     "triangles": 100,
     "dimensions_mm": [
-      81.0,
-      81.0,
-      54.0
+      240.0,
+      240.0,
+      160.0
     ],
     "nonmanifold_edges": 4,
     "consistent_winding": true,
     "connected_components": 1,
-    "volume_mm3": 275562.0
+    "volume_mm3": 7168000.0
   },
   "FragmentB_clearance_0p4mm.stl": {
     "triangles": 428,
     "dimensions_mm": [
-      81.0,
-      81.0,
-      54.0
+      240.0,
+      240.0,
+      160.0
     ],
     "nonmanifold_edges": 0,
     "consistent_winding": true,
     "connected_components": 1,
-    "volume_mm3": 253563.478
+    "volume_mm3": 6635571.472
   },
   "FragmentB_nominal.stl": {
     "triangles": 92,
     "dimensions_mm": [
-      81.0,
-      81.0,
-      54.0
+      240.0,
+      240.0,
+      160.0
     ],
     "nonmanifold_edges": 4,
     "consistent_winding": true,
     "connected_components": 1,
-    "volume_mm3": 255879.0
+    "volume_mm3": 6656000.0
   }
 }

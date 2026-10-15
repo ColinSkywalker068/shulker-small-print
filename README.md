@@ -1,42 +1,41 @@
-# Shulker small task: printable fragments
+# Shulker fragments at original simulation size
 
-Source repository: /local_data/yz11445/projects/Assembly_Sim
-- tasks/stack_sawtooth_shulker_small/geometry.py defines the two voxel shapes.
-- tasks/stack_sawtooth_shulker_small/config.py sets DEFAULT_UNIT_SIZE = 0.027 meters.
-- tasks/stack_sawtooth_shulker_small/assets.py builds the simulated USD cubes procedurally.
+These full-size models replace the earlier 81 mm small-task exports.
+The repository retains its original name, `shulker-small-print`.
 
-## Files to print
+Source: tasks/stack_sawtooth_shulker/geometry.py and config.py in
+/local_data/yz11445/projects/Assembly_Sim.
+DEFAULT_UNIT_SIZE = 0.08 meters = 80 mm.
 
-- FragmentA_clearance_0p4mm.stl: blue, solid base with five raised posts.
-- FragmentB_clearance_0p4mm.stl: green, solid base with four raised posts.
+Each fragment measures 240 x 240 x 160 mm. Together they form a
+240 x 240 x 240 mm cube. Import STL as millimeters at 100% scale.
+Both parts have their full base flat on Z=0. Fragment B is inverted
+relative to its simulation pose; flip one part for assembly.
 
-Import STL coordinates as millimeters, at 100% scale. Each part measures
-81 x 81 x 54 mm; assembled height is 81 mm. STL does not store colors or units.
-Both files have their full 81 x 81 mm base on Z=0, posts upward. B is rotated
-180 degrees around X relative to its simulation orientation. Flip one part
-for assembly so its posts point toward the other part's base.
+- FragmentA_nominal.stl and FragmentB_nominal.stl reproduce the nominal
+  simulation visual geometry. Zero fit clearance; each retains four
+  nonmanifold edges at diagonal post contacts. A slicer may need to repair
+  these exact reference meshes.
+- FragmentA_clearance_0p4mm.stl and FragmentB_clearance_0p4mm.stl inset
+  each raised post by 0.2 mm on every X/Y side, creating a 0.4 mm lateral
+  gap between neighboring mating posts. This uses the same absolute gap
+  as the small print version, not a scaled-up gap. Base and heights remain
+  unchanged. Both clearance meshes passed edge, winding, connectivity,
+  dimensions, and volume checks with zero nonmanifold edges.
 
-The clearance variant insets every raised post by 0.2 mm on each X/Y side,
-without changing the base, post heights, or overall bounding dimensions.
-This produces a nominal 0.4 mm lateral gap between opposing adjacent posts.
-Fit has not been physically tested and depends on printer/material accuracy.
-No G-code is included: slice with your printer and material profile.
+The printing clearance is independent of the simulation's 2 mm collider
+clearance. Nominal STL files follow the visible 80 mm voxels, not the smaller
+simulation collision cubes.
 
-## Exact reference files
+No slicer or physical fit tests have been performed. No G-code is included.
+Build volume must accommodate 240 x 240 x 160 mm per fragment.
 
-FragmentA_nominal.stl and FragmentB_nominal.stl preserve the nominal voxel
-geometry. Each has four nonmanifold edges where diagonal posts meet only
-along an edge. These are reference exports; use the clearance versions
-for printing.
+Regenerate using Python 3 (no additional packages):
 
-## Validation
+```bash
+python3 export_fragments.py
+python3 verify_stl.py
+```
 
-verify_stl.py reads the actual binary STL files, checks dimensions, positive
-volume, winding, connectivity and edge incidence, and writes validation.json.
-Both clearance meshes have one connected component, consistent winding,
-and exactly two triangles incident to every edge (zero nonmanifold edges).
-They have not been checked in a slicer or physically printed.
-
-Regenerate with Python 3: python3 export_fragments.py
-Validate with Python 3: python3 verify_stl.py
-No extra Python packages or GPUs are needed.
+The exporter reads the source geometry from the repository path above.
+Validation reads the STL artifacts and writes validation.json.
